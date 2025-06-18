@@ -1,127 +1,55 @@
-CI/CD Pipeline with Terraform, GitHub Actions, Docker, and ECS
+# 📦 CI/CD Pipeline with Terraform, GitHub Actions, Docker, and ECS
+## 🧠 Overview
 
-🤔 Overview
+This project demonstrates a complete CI/CD pipeline to deploy a containerized application on AWS using:
 
-This project demonstrates a full-scale CI/CD pipeline that deploys a containerized application to AWS using:
+GitHub Actions for automation
+Terraform for Infrastructure as Code
+ECR for Docker image storage
+ECS (Fargate) for container orchestration
+EC2-based self-hosted runner to build and push Docker images
+RDS as a backend database
+S3 to manage assets or config files
+## 📐 Architecture Diagram
+(Include a PNG or draw.io diagram showing GitHub → Terraform → AWS Infrastructure)
 
-Terraform for infrastructure provisioning
-
-GitHub Actions for automation and orchestration
-
-Docker for containerization
-
-Amazon ECS (Fargate) for container orchestration
-
-Amazon ECR to store Docker images
-
-Amazon RDS for the application database
-
-Amazon S3 for hosting zipped application and environment files
-
-EC2 self-hosted runner to securely build and push Docker images
-
-📏 Architecture Diagram
-
-*Add your architecture diagram image here — suggested path: *screenshots/architecture-diagram.png
-
-⚙️ Technologies Used
-
-Tool
-
-Purpose
-
-Terraform
-
-Define and manage AWS infrastructure
-
-GitHub Actions
-
-CI/CD pipeline automation
-
-Docker
-
-Containerize the application
-
-Amazon ECS
-
-Host containerized application
-
-Amazon ECR
-
-Store and retrieve Docker images
-
-Amazon RDS
-
-Manage relational database
-
-Amazon S3
-
-Store zipped application assets & .env files
-
-Amazon EC2
-
-Host a self-hosted GitHub Actions runner
-
-🚀 Pipeline Workflow
-
-**Push to **`` triggers the GitHub Actions pipeline.
-
-configure_aws_credentials: Authenticates using AWS credentials.
-
-deploy_aws_infrastructure: Provisions infrastructure using Terraform.
-
-start_runner: Starts a self-hosted EC2 GitHub Actions runner.
-
-create_ecr_repository: Checks/creates the ECR repository.
-
+## 🚀 Features
+🔁 Full GitHub Actions CI/CD pipeline
+🏗️ Terraform-managed infrastructure
+🐳 Docker build & ECR push from EC2 self-hosted runner
+📦 ECS Fargate service deployment
+🔐 Secrets managed through GitHub
+🧹 Auto cleanup with Terraform destroy
+## ⚙️ Technologies Used
+Tool	Purpose
+Terraform	Define and provision infrastructure
+GitHub Actions	Automate CI/CD workflow
+Docker	Containerize the application
+Amazon ECR	Store and manage container images
+Amazon ECS	Run containers
+Amazon EC2	Host self-managed GitHub runner
+Amazon RDS	Store backend data
+Amazon S3	Store zipped app & .env files
+## 🛠️ How It Works
+Push to main triggers the pipeline.
+configure_aws_credentials job sets up credentials.
+deploy_aws_infrastructure runs terraform apply to provision:
+VPC, ECS, EC2 runner, ECR, RDS, and S3.
+start_runner launches EC2 instance with a GitHub runner.
+create_ecr_repository creates ECR repo if it doesn't exist.
 build_and_push_image:
-
-Builds Docker image
-
-Pushes it to ECR
-
-ECS deploys the new image automatically.
-
-📚 Folder Structure
-
-.
-├── .github/
-│   └── workflows/
-│       └── deploy_pipeline.yml
-├── iac/
-│   └── *.tf (Terraform files for AWS infrastructure)
-├── screenshots/
-│   └── architecture-diagram.png
-├── Dockerfile
-└── README.md
-
-✅ Outputs
-
+Builds Docker image from zipped app repo
+Pushes image to ECR
+ECS uses the image to run the app.
+Outputs like domain, database endpoint, and image name are printed and used in later steps.
+## 🧪 Example Outputs
+Terraform Apply Complete!
+Outputs:
 image_name = "rentzone-app"
 domain_name = "rentzone.com"
-rds_endpoint = "dev-rds-db.xxxxx.rds.amazonaws.com"
-image_tag = "latest"
-
-🤝 Collaboration
-
-Contributions are welcome! Please fork the repo and submit a pull request if you'd like to improve this project or add new features.
+rds_endpoint = "dev-rds-db.****.rds.amazonaws.com"
 
 
-Created by Tristan Jones
-
-LinkedIn
-
-GitHub
-
-🤖 Future Improvements
-
-Add automated teardown job
-
-Use AWS CodePipeline for additional stages
-
-Add Slack notification integration for CI status
-
-📃 License
-
-This project is licensed under the MIT License.
+## 💬 Credits
+Created by Tristan Jones | LinkedIn
 
